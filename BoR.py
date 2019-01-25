@@ -24,18 +24,21 @@ reddit = praw.Reddit(client_id=config['DEFAULT']['CLIENT_ID'], \
                      username=config['DEFAULT']['USERNAME'], \
                      password=config['DEFAULT']['PASSWORD'])
 
-
-# setting subreddit to target
-subreddit = reddit.subreddit('worldnews')
-
-# finding top subreddit posts, also usable are .hot, .new, .controversial, .gilded and .search("keywords")
-#this defaults to return top 100 submissions, you can set an amount with .top(limit=500) etc and note reddit's request limit is 1000
-top_subreddit = subreddit.top()
-
-# currently retrieving top result of all time and sdome elements of the submission
-for submission in subreddit.top(limit=1):
-    print(submission.title)
-    print(submission.id)
-    print(submission.selftext)
+#creating result class that can be used to store data
+class RedditResult:
+  def __init__(self, title, id, score, selftext):
+    self.title = title
+    self.score = score
+    self.link = link
     
-# want to grab top result for certain time frame such as the date of 23-jan-19 only.
+wantedSubreddit = reddit.subreddit('default')
+
+def getTopResultDay(selected_subreddit):
+    wantedSubreddit = reddit.subreddit(selected_subreddit)
+    for submission in wantedSubreddit.top(limit=1, time_filter='day'):
+        print('Title: ' + submission.title)
+        print('Score: ' + str(submission.score))
+        print('Link: https://www.reddit.com' + submission.permalink)
+getTopResultDay('askreddit')
+    
+    
