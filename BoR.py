@@ -25,48 +25,47 @@ reddit = praw.Reddit(client_id=config['DEFAULT']['CLIENT_ID'], \
                      password=config['DEFAULT']['PASSWORD'])
 
 #creating result dictionary that can be used to store data
-resultsDictionary = { "subreddit":[], \
+results_dictionary = { "subreddit":[], \
                       "title":[], \
                       "score":[], \
                       "url":[]}
-#instantiating wantedSubreddit to select a subreddit to target and targettedSubreddit a list of targetted subreddits
-wantedSubreddit = reddit.subreddit('default')
-targettedSubreddit = ["all", "worldnews", "jokes", "quotes"]
+#instantiating wanted_subreddit to select a subreddit to target and targetted_subreddit a list of targetted subreddits
+wanted_subreddit = reddit.subreddit('default')
+targetted_subreddit = ["all", "worldnews", "jokes", "quotes"]
 
 #print method for results
-def getTopResultDay(selected_subreddit):
+def get_top_result(selected_subreddit):
     for sub in selected_subreddit:
-        wantedSubreddit = reddit.subreddit(sub)
-        for submission in wantedSubreddit.top(limit=1, time_filter='day'):
+        wanted_subreddit = reddit.subreddit(sub)
+        for submission in wanted_subreddit.top(limit=1, time_filter='day'):
             print('Title: ' + submission.title)
             print('Score: ' + str(submission.score))
             print('url: ' + submission.url)
             
 #store method to keeping results in a dictionary
-def storeTopResultDay(selected_subreddit):
+def store_top_result(selected_subreddit):
     for sub in selected_subreddit:
-        wantedSubreddit = reddit.subreddit(sub)
-        for submission in wantedSubreddit.top(limit=1, time_filter='day'):
-            resultsDictionary["subreddit"].append(sub)
-            resultsDictionary["title"].append(submission.title)
-            resultsDictionary["score"].append(submission.score)
-            resultsDictionary["url"].append(submission.url)
+        wanted_subreddit = reddit.subreddit(sub)
+        for submission in wanted_subreddit.top(limit=1, time_filter='day'):
+            results_dictionary["subreddit"].append(sub)
+            results_dictionary["title"].append(submission.title)
+            results_dictionary["score"].append(submission.score)
+            results_dictionary["url"].append(submission.url)
 
 #User interaction
 
 userInteract = input("Would you like to change the default queried subreddits?\n type 'y' and hit enter if yes or any other action and/or enter if no \n")
 if userInteract.lower() == "y":
-    targettedSubreddit = []
-    addMore = 1
-    while addMore > 0:
-        addSub = input("Please enter the name of the subreddit you wish to add \n")
-        targettedSubreddit.append(addSub)
+    targetted_subreddit = []
+    add_more = 1
+    while add_more > 0:
+        add_sub = input("Please enter the name of the subreddit you wish to add \n")
+        targetted_subreddit.append(add_sub)
         done = input("would you like to add another, type 'y' and hit enter for yes or any action and/or enter for no \n")
         if done != "y":
-            addMore = 0
-    getTopResultDay(targettedSubreddit)
-    storeTopResultDay(targettedSubreddit)
+            add_more = 0
+    get_top_result(targetted_subreddit)
+    store_top_result(targetted_subreddit)
 else:
-    getTopResultDay(targettedSubreddit)
-    storeTopResultDay(targettedSubreddit)
-    
+    get_top_result(targetted_subreddit)
+    store_top_result(targetted_subreddit)
