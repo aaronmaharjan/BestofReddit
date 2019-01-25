@@ -69,3 +69,6 @@ if userInteract.lower() == "y":
 else:
     get_top_result(targetted_subreddit)
     store_top_result(targetted_subreddit)
+
+subreddit_data = pd.DataFrame(results_dictionary)
+subreddit_data
