@@ -24,21 +24,32 @@ reddit = praw.Reddit(client_id=config['DEFAULT']['CLIENT_ID'], \
                      username=config['DEFAULT']['USERNAME'], \
                      password=config['DEFAULT']['PASSWORD'])
 
-#creating result class that can be used to store data
-class RedditResult:
-  def __init__(self, title, id, score, selftext):
-    self.title = title
-    self.score = score
-    self.link = link
-    
+#creating result dictionary that can be used to store data
+resultsDictionary = { "subreddit":[], \
+                      "title":[], \
+                      "score":[], \
+                      "url":[]}
+
+
 wantedSubreddit = reddit.subreddit('default')
+targettedSubreddit = 'all'
 
 def getTopResultDay(selected_subreddit):
     wantedSubreddit = reddit.subreddit(selected_subreddit)
     for submission in wantedSubreddit.top(limit=1, time_filter='day'):
         print('Title: ' + submission.title)
         print('Score: ' + str(submission.score))
-        print('Link: https://www.reddit.com' + submission.permalink)
-getTopResultDay('askreddit')
-    
+        print('url: ' + submission.url)
+
+def storeTopResultDay(selected_subreddit):
+    wantedSubreddit = reddit.subreddit(selected_subreddit)
+    for submission in wantedSubreddit.top(limit=1, time_filter='day'):
+        resultsDictionary["subreddit"].append(targettedSubreddit)
+        resultsDictionary["title"].append(submission.title)
+        resultsDictionary["score"].append(submission.score)
+        resultsDictionary["url"].append(submission.url)
+        
+        
+getTopResultDay(targettedSubreddit)
+storeTopResultDay(targettedSubreddit)
     
