@@ -37,7 +37,8 @@ targetted_subreddit = ["all", "worldnews", "jokes", "quotes"]
 def get_top_result(selected_subreddit):
     for sub in selected_subreddit:
         wanted_subreddit = reddit.subreddit(sub)
-        for submission in wanted_subreddit.top(limit=1, time_filter='day'):
+        for submission in wanted_subreddit.top(limit=1):
+        #for submission in wanted_subreddit.top(limit=1, time_filter='day'):
             print('Title: ' + submission.title)
             print('Score: ' + str(submission.score))
             print('url: ' + submission.url)
@@ -46,7 +47,7 @@ def get_top_result(selected_subreddit):
 def store_top_result(selected_subreddit):
     for sub in selected_subreddit:
         wanted_subreddit = reddit.subreddit(sub)
-        for submission in wanted_subreddit.top(limit=1, time_filter='day'):
+        for submission in wanted_subreddit.top(limit=1):
             results_dictionary["subreddit"].append(sub)
             results_dictionary["title"].append(submission.title)
             results_dictionary["score"].append(submission.score)
@@ -64,11 +65,15 @@ if userInteract.lower() == "y":
         done = input("would you like to add another, type 'y' and hit enter for yes or any action and/or enter for no \n")
         if done != "y":
             add_more = 0
-    get_top_result(targetted_subreddit)
+    #get_top_result(targetted_subreddit)
     store_top_result(targetted_subreddit)
 else:
-    get_top_result(targetted_subreddit)
+    #get_top_result(targetted_subreddit)
     store_top_result(targetted_subreddit)
 
-subreddit_data = pd.DataFrame(results_dictionary)
-subreddit_data
+data = pd.DataFrame(results_dictionary)
+for elements in targetted_subreddit:
+    subData = data[data['subreddit'] == elements]
+    subData.to_csv( 'data/' + elements + '.csv', index=False) 
+    
+#subreddit_data.to_csv('test.csv', index=False) 
