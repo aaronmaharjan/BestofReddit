@@ -1,3 +1,9 @@
+Best of Reddit
+==============
+
+USAGE
+=====
+
 https://www.reddit.com/prefs/apps In here you can create an app or
 create another app,
 
@@ -7,6 +13,19 @@ create another app,
    the correct details and either change the name in the BoR.py file to
    read config\_example.ini instead of config.ini or rename
    config\_example.ini to config.ini
+   
+Make sure you have the libraries listed below
+
+Run the BoR.py file from command line or within Spyder,etc
+
+Libraries Used
+==============
+
+praw
+pandas
+configparser
+
+
 
 Dataframe pictured below, WIP will improve visualisation later.
 
@@ -14,8 +33,14 @@ Dataframe pictured below, WIP will improve visualisation later.
   :alt: DataframePicture
   :align: left
   
-  
-USING PEP 8 -- Style Guide for Python Code USING PRAW :
-https://github.com/praw-dev/praw Special thanks to : Felippe Rodrigues
-for this helpful guide to help get me started
+
+.. meta::
+   :description: BestofReddit project
+   :author: Aaron Maharjan
+   :keywords: python, reddit
+   
+USING PEP 8 -- Style Guide for Python Code 
+USING PRAW : https://github.com/praw-dev/praw 
+Special thanks to : Felippe Rodrigues for this helpful guide to help get me started
 http://www.storybench.org/how-to-scrape-reddit-with-python/
+
