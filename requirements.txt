@@ -1,0 +1,9 @@
+certifi==2018.11.29
+pandoc==1.0.2
+ply==3.11
+praw==6.1.0
+prawcore==1.0.0
+requests==2.21.0
+source==1.2.0
+virtualenv==16.4.0
+

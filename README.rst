@@ -16,6 +16,12 @@ create another app,
    
 Make sure you have the libraries listed below
 
+virtualenv venv
+
+bash: source venv/bin/activate      Windows: venv\Scripts\activate
+
+pip install -r requirements.txt
+
 Run the BoR.py file from command line or within Spyder,etc
 
 Libraries Used
@@ -24,7 +30,8 @@ Libraries Used
 praw
 pandas
 configparser
-
+source
+virtualenv
 
 
 Dataframe pictured below, WIP will improve visualisation later.
