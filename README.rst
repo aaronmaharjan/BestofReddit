@@ -10,6 +10,11 @@ create another app,
 
 Dataframe pictured below, WIP will improve visualisation later.
 
+.. image:: images/dataframe_default.png
+  :alt: DataframePicture
+  :align: left
+  
+  
 USING PEP 8 -- Style Guide for Python Code USING PRAW :
 https://github.com/praw-dev/praw Special thanks to : Felippe Rodrigues
 for this helpful guide to help get me started
