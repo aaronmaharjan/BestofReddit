@@ -24,56 +24,38 @@ reddit = praw.Reddit(client_id=config['DEFAULT']['CLIENT_ID'], \
                      username=config['DEFAULT']['USERNAME'], \
                      password=config['DEFAULT']['PASSWORD'])
 
-#creating result dictionary that can be used to store data
-results_dictionary = { "subreddit":[], \
-                      "title":[], \
-                      "score":[], \
-                      "url":[]}
-#instantiating wanted_subreddit to select a subreddit to target and targetted_subreddit a list of targetted subreddits
-wanted_subreddit = reddit.subreddit('default')
-targetted_subreddit = ["all", "worldnews", "jokes", "quotes"]
 
-#print method for results
-def get_top_result(selected_subreddit):
-    for sub in selected_subreddit:
-        wanted_subreddit = reddit.subreddit(sub)
-        for submission in wanted_subreddit.top(limit=1):
+class RedditMain:
+    results_dictionary = { "subreddit":[], \
+                          "title":[], \
+                          "score":[], \
+                          "url":[]}
+    
+    def __init__(self):
+        pass
+    
+    
+    #print method for results
+    def get_top_result(self, sub):
+        for submission in reddit.subreddit(sub).top(limit=1):
         #for submission in wanted_subreddit.top(limit=1, time_filter='day'):
             print('Title: ' + submission.title)
             print('Score: ' + str(submission.score))
             print('url: ' + submission.url)
-            
-#store method to keeping results in a dictionary
-def store_top_result(selected_subreddit):
-    for sub in selected_subreddit:
-        wanted_subreddit = reddit.subreddit(sub)
-        for submission in wanted_subreddit.top(limit=1):
-            results_dictionary["subreddit"].append(sub)
-            results_dictionary["title"].append(submission.title)
-            results_dictionary["score"].append(submission.score)
-            results_dictionary["url"].append(submission.url)
+                
+    #store method to keeping results in a dictionary
+    def store_top_result(self, sub):
+        for submission in reddit.subreddit(sub).top(limit=1):
+            RedditMain.results_dictionary["subreddit"].append(sub)
+            RedditMain.results_dictionary["title"].append(submission.title)
+            RedditMain.results_dictionary["score"].append(submission.score)
+            RedditMain.results_dictionary["url"].append(submission.url)
+        data = pd.DataFrame(RedditMain.results_dictionary)
+        data.to_csv('data/' + sub + '.csv' , index=False)
 
-#User interaction
+bestReddit = RedditMain()
+bestReddit.store_top_result('all')
 
-userInteract = input("Would you like to change the default queried subreddits?\n type 'y' and hit enter if yes or any other action and/or enter if no \n")
-if userInteract.lower() == "y":
-    targetted_subreddit = []
-    add_more = 1
-    while add_more > 0:
-        add_sub = input("Please enter the name of the subreddit you wish to add \n")
-        targetted_subreddit.append(add_sub)
-        done = input("would you like to add another, type 'y' and hit enter for yes or any action and/or enter for no \n")
-        if done != "y":
-            add_more = 0
-    #get_top_result(targetted_subreddit)
-    store_top_result(targetted_subreddit)
-else:
-    #get_top_result(targetted_subreddit)
-    store_top_result(targetted_subreddit)
 
-data = pd.DataFrame(results_dictionary)
-for elements in targetted_subreddit:
-    subData = data[data['subreddit'] == elements]
-    subData.to_csv( 'data/' + elements + '.csv', index=False) 
-    
-#subreddit_data.to_csv('test.csv', index=False) 
+
+
